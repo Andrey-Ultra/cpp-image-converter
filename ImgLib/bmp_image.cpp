@@ -98,6 +98,23 @@ namespace img_lib {
             return {};
         }
 
+        if (file_header.reserved != 0) {
+            return {};
+        }
+
+        if (info_header.header_size != sizeof(BitmapInfoHeader)) {
+            return {};
+        }
+        if (info_header.planes != 1) {
+            return {};
+        }
+        if (info_header.bit_count != 24) {
+            return {};
+        }
+        if (info_header.compression != 0) {
+            return {};
+        }
+
         const int w = info_header.width;
         const int h = info_header.height;
         const int stride = GetBMPStride(w);

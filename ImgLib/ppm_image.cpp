@@ -14,6 +14,10 @@ static const int PPM_MAX = 255;
 bool SavePPM(const Path& file, const Image& image) {
     ofstream out(file, ios::binary);
 
+    if (!out) {
+        return false;
+    }
+
     out << PPM_SIG << '\n' << image.GetWidth() << ' ' << image.GetHeight() << '\n' << PPM_MAX << '\n';
 
     const int w = image.GetWidth();
@@ -36,6 +40,11 @@ bool SavePPM(const Path& file, const Image& image) {
 Image LoadPPM(const Path& file) {
 
     ifstream ifs(file, ios::binary);
+
+    if (!ifs) {
+        return {};
+    }
+
     std::string sign;
     int w, h, color_max;
 
